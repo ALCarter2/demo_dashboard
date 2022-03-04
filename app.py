@@ -191,7 +191,7 @@ if "count" not in st.session_state:
 if "submit" not in st.session_state:
     st.session_state.submit = 0
 
-st.write(st.session_state.count, st.session_state.submit)
+# st.write(st.session_state.count, st.session_state.submit)
 st.subheader("Navigation")
 list_options = st.selectbox("Select an option", options)
 st.markdown("""---""")
@@ -373,4 +373,4 @@ else:
 
     st.write(st.session_state.count, st.session_state.submit)
 
-# Streamlit Outputs
+# Streamlit Outputs 2
