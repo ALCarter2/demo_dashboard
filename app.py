@@ -191,6 +191,7 @@ if "submit" not in st.session_state:
 
 st.subheader("Navigation")
 list_options = st.selectbox("Select an option", options)
+st.markdown("""---""")
 
 if list_options == "➕ Add Client":
     st.session_state.submit = 0
