@@ -54,7 +54,7 @@ scope = [
 # Import data
 @st.cache(allow_output_mutation=True, show_spinner=False, suppress_st_warning=True)
 def grabDF(sheet_url, sheet, query, count=st.session_state.get("count", 0)):
-    st.write(f"grabDF count: {count}")
+    # st.write(f"grabDF count: {count}")
     creds = service_account.ServiceAccountCredentials.from_json_keyfile_dict(key, scope)
     client = gspread.authorize(creds)
     gc = client.open_by_url(sheet_url)
