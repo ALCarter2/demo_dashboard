@@ -52,8 +52,9 @@ scope = [
 ]
 
 # Import data
-@st.cache(allow_output_mutation=True, show_spinner=False)
+@st.cache(allow_output_mutation=True, show_spinner=False, suppress_st_warning=True)
 def grabDF(sheet_url, sheet, query, count=st.session_state.get("count", 0)):
+    st.write(f"grabDF count: {count}")
     creds = service_account.ServiceAccountCredentials.from_json_keyfile_dict(key, scope)
     client = gspread.authorize(creds)
     gc = client.open_by_url(sheet_url)
@@ -189,6 +190,7 @@ if "count" not in st.session_state:
 if "submit" not in st.session_state:
     st.session_state.submit = 0
 
+st.write(st.session_state.count, st.session_state.submit)
 st.subheader("Navigation")
 list_options = st.selectbox("Select an option", options)
 st.markdown("""---""")
@@ -245,6 +247,7 @@ if list_options == "➕ Add Client":
                 st.session_state.count += 1
             else:
                 st.error("❌ Please enter all name fields.")
+        st.write(st.session_state.count, st.session_state.submit)
 
 elif list_options == "📈 Existing Client":
     st.sidebar.header("Menu")
@@ -358,11 +361,15 @@ elif list_options == "📈 Existing Client":
                         st.success("Client profile updated. 😊")
                         st.session_state.count += 1
                         st.session_state.submit = 0
+                st.write(st.session_state.count, st.session_state.submit)
 
 else:
+    st.session_state.count += 1
     st.session_state.submit = 0
     st.sidebar.header("")
     df = grabDF(sheet_url, "Patients", query=f"all")
     st.write(df)
+
+    st.write(st.session_state.count, st.session_state.submit)
 
 # Streamlit Outputs
