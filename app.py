@@ -98,7 +98,7 @@ def getPatients(count=st.session_state.get("count", 0)):
     ]
 
 
-@st.cache(allow_output_mutation=True, count=st.session_state.get("count", 0))
+@st.cache(allow_output_mutation=True, show_spinner=False, suppress_st_warning=True)
 def getClinician(count=st.session_state.get("count", 0)):
     """
     This function uses grabDF() to grab the data from the Clinician sheet.
