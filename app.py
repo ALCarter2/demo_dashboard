@@ -106,7 +106,7 @@ def getClinician(count=st.session_state.get("count", 0)):
     First Name, and ID.
     """
     df = grabDF(sheet_url, "Clinicians", '`First Name` != ""')
-    st.write(df)
+    # st.write(df)
     return [f"{row['First Name']} {row['Last Name']}" for index, row in df.iterrows()]
 
 
