@@ -72,7 +72,7 @@ def writeDF(sheet_url, sheet, df):
     worksheet.update([df.columns.values.tolist()] + df.values.tolist())
 
 
-# @st.cache(allow_output_mutation=True)
+@st.cache(allow_output_mutation=True)
 def getPatients():
     """
     This function uses grabDF() to grab the data from the sheet.
