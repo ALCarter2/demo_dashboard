@@ -1,3 +1,7 @@
 .venv
-.streamlit
+.streamlit/secrets.toml
 *.pyc
+.old
+.vscode
+*.json
+*.txt
