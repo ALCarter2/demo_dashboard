@@ -17,7 +17,10 @@ from datetime import datetime
 from dateutil import parser
 
 st.set_page_config(
-    layout="wide", page_title="Demo Beta App", initial_sidebar_state="expanded"
+    layout="wide",
+    page_title="Demo Beta App",
+    initial_sidebar_state="expanded",
+    page_icon="🚀",
 )
 
 hide_streamlit_style = """
@@ -49,7 +52,7 @@ scope = [
 ]
 
 # Import data
-@st.cache(allow_output_mutation=True, ttl=1200, show_spinner=False)
+@st.cache(allow_output_mutation=True, show_spinner=False)
 def grabDF(sheet_url, sheet, query, count=st.session_state.get("count", 0)):
     creds = service_account.ServiceAccountCredentials.from_json_keyfile_dict(key, scope)
     client = gspread.authorize(creds)
