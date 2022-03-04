@@ -84,8 +84,8 @@ def writeDF(sheet_url, sheet, df):
     worksheet.update([df.columns.values.tolist()] + df.values.tolist())
 
 
-@st.cache(allow_output_mutation=True)
-def getPatients():
+@st.cache(allow_output_mutation=True, show_spinner=False, suppress_st_warning=True)
+def getPatients(count=st.session_state.get("count", 0)):
     """
     This function uses grabDF() to grab the data from the sheet.
     The function then goes through each row and returns a list of Last Name,
@@ -98,8 +98,8 @@ def getPatients():
     ]
 
 
-@st.cache(allow_output_mutation=True)
-def getClinician():
+@st.cache(allow_output_mutation=True, count=st.session_state.get("count", 0))
+def getClinician(count=st.session_state.get("count", 0)):
     """
     This function uses grabDF() to grab the data from the Clinician sheet.
     The function then goes through each row and returns a list of Last Name,
@@ -132,8 +132,8 @@ def get_id_fields(input_string):
     return last_name, first_name, id_patient
 
 
-@st.cache(allow_output_mutation=True, show_spinner=False)
-def format_client_record(df):
+@st.cache(allow_output_mutation=True, show_spinner=False, suppress_st_warning=True)
+def format_client_record(df, count=st.session_state.get("count", 0)):
     last_name = df["Last Name"].values[0]
     first_name = df["First Name"].values[0]
     intake_date = parser.parse(df["Intake Date"].values[0])
