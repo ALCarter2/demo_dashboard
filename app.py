@@ -5,6 +5,7 @@ import gspread
 from gspread.exceptions import SpreadsheetNotFound
 from gspread_pandas import Spread
 import json
+import random
 
 # from oauth2client.service_account import ServiceAccountCredentials
 from oauth2client import service_account
@@ -186,7 +187,7 @@ new_client_req = False
 # If no, then initialize count to 0
 # If count is already initialized, don't do anything
 if "count" not in st.session_state:
-    st.session_state.count = 0
+    st.session_state.count = random.uniform(1, 100)
 
 if "submit" not in st.session_state:
     st.session_state.submit = 0
