@@ -181,7 +181,7 @@ sheet_url = "https://docs.google.com/spreadsheets/d/1DYK7Yvh-aS4SlHqMXLn-C5TqQZc
 # Streamlit Components
 options = ["➕ Add Client", "📈 Existing Client", "📊 Metrics"]
 clients = getPatients()
-forms = ["Clinical Intake", "Eligibility Tool", "Release of Information"]
+forms = ["Clinical Intake", "Release of Information"]
 new_client_req = False
 
 # If no, then initialize count to 0
@@ -364,7 +364,11 @@ elif list_options == "📈 Existing Client":
                         st.session_state.count += 1
                         st.session_state.submit = 0
                 st.write(st.session_state.count, st.session_state.submit)
-
+    elif list_forms == "Release of Information":
+        st.subheader("Release of Information")
+        st.checkbox(
+            "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip"
+        )
 else:
     st.session_state.count += 1
     st.session_state.submit = 0
