@@ -399,6 +399,7 @@ else:
         plt.title("Client Count by Clinician", fontsize=10)
         ax1 = (
             df["Clinician"]
+            .notna()
             .value_counts()
             .plot.bar(
                 rot=0,
@@ -423,6 +424,7 @@ else:
         plt.title("Client Count by Diet", fontsize=10)
         ax2 = (
             df["Diet"]
+            .notna()
             .value_counts()
             .plot.bar(
                 rot=0,
@@ -448,6 +450,7 @@ else:
         plt.title("Client Count by Gender", fontsize=10)
         ax1 = (
             df["Gender"]
+            .notna()
             .value_counts()
             .plot.bar(
                 rot=0,
