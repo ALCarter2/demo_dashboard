@@ -451,7 +451,7 @@ else:
             .value_counts()
             .plot.bar(
                 rot=0,
-                fontsize=8,
+                fontsize=10,
                 sort_columns=True,
                 xlabel="Gender",
             )
