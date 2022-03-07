@@ -398,8 +398,7 @@ else:
 
         plt.title("Client Count by Clinician", fontsize=10)
         ax1 = (
-            df["Clinician"]
-            .notna()
+            df[df["Clinician"].notna()]
             .value_counts()
             .plot.bar(
                 rot=0,
