@@ -397,6 +397,7 @@ else:
         plt.rcParams.update({"font.size": 22})
 
         plt.title("Client Count by Clinician", fontsize=10)
+        df["Clinician"].replace("", np.nan, inplace=True)
         ax1 = (
             df["Clinician"]
             .dropna()
@@ -422,6 +423,7 @@ else:
         plt.rcParams.update({"font.size": 22})
 
         plt.title("Client Count by Diet", fontsize=10)
+        df["Diet"].replace("", np.nan, inplace=True)
         ax2 = (
             df["Diet"]
             .dropna()
