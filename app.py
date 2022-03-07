@@ -391,57 +391,81 @@ else:
     df = grabDF(sheet_url, "Patients", query=f"all")
     st.write(df)
     st.markdown("""---""")
-    st.write(
-        f"Sample visual output below. Chart output is not data dynamic as of [{date.today()}]. -AC"
-    )
     row1col1, row1col2, row1col3 = st.columns(3)
     with row1col1:
-        vis1_df = pd.DataFrame(
-            {"Clinician": {0: "Bert Jacobson", 1: "Elmo Clash"}, "Record": {0: 4, 1: 1}}
+        plt.figure()
+        plt.rcParams.update({"font.size": 22})
+
+        plt.title("Client Count by Clinician", fontsize=10)
+        ax1 = (
+            df["Clinician"]
+            .value_counts()
+            .plot.bar(
+                rot=0,
+                fontsize=8,
+                sort_columns=True,
+            )
         )
-        fig1, ax1 = plt.subplots()
+        ax1.set_ylabel("Count", fontdict={"fontsize": 10})
+        ax1.set_xlabel("Clinician", fontdict={"fontsize": 10})
 
-        bars1 = vis1_df["Clinician"]
-        measurements1 = vis1_df["Record"]
-        ax1.bar(bars1, measurements1, width=0.3333333333333333)
-        ax1.set_title("Client Count by Clinician")
-        ax1.set_xlabel("Clinician")
-        ax1.set_ylabel("Count")
+        # Get your current y-ticks (loc is an array of your current y-tick elements)
+        loc, labels = plt.yticks()
+        # This sets your y-ticks to the specified range at whole number intervals
+        plt.yticks(np.arange(0, max(loc), step=1))
 
-        st.write(fig1)
+        st.pyplot(plt)
 
     with row1col2:
-        vis2_df = pd.DataFrame(
-            {"Diet": {0: "Herbivore", 1: "Omnivore"}, "Record": {0: 4, 1: 1}}
+        plt.figure()
+        plt.rcParams.update({"font.size": 22})
+
+        plt.title("Client Count by Diet", fontsize=10)
+        ax2 = (
+            df["Diet"]
+            .value_counts()
+            .plot.bar(
+                rot=0,
+                fontsize=8,
+                sort_columns=True,
+                xlabel="Diet",
+            )
         )
-        fig2, ax2 = plt.subplots()
+        ax2.set_ylabel("Count", fontdict={"fontsize": 10})
+        ax2.set_xlabel("Diet", fontdict={"fontsize": 10})
 
-        bars2 = vis2_df["Diet"]
-        measurements2 = vis2_df["Record"]
-        ax2.bar(bars2, measurements2, width=0.2)
-        ax2.set_title("Client Count by Diet")
-        ax2.set_xlabel("Diet")
-        ax2.set_ylabel("Count")
+        # Get your current y-ticks (loc is an array of your current y-tick elements)
+        loc, labels = plt.yticks()
+        # This sets your y-ticks to the specified range at whole number intervals
+        plt.yticks(np.arange(0, max(loc), step=1))
 
-        st.write(fig2)
+        st.pyplot(plt)
 
     with row1col3:
-        vis3_df = pd.DataFrame(
-            {
-                "Gender": {0: "Female", 1: "Male", 2: "Non-Binary"},
-                "Record": {0: 2, 1: 2, 2: 1},
-            }
+        plt.figure()
+        plt.rcParams.update({"font.size": 22})
+
+        plt.title("Client Count by Gender", fontsize=10)
+        ax1 = (
+            df["Gender"]
+            .value_counts()
+            .plot.bar(
+                rot=0,
+                fontsize=8,
+                sort_columns=True,
+                xlabel="Gender",
+            )
         )
-        fig3, ax3 = plt.subplots()
+        ax1.set_ylabel("Count", fontdict={"fontsize": 10})
+        ax1.set_xlabel("Gender", fontdict={"fontsize": 10})
 
-        bars3 = vis3_df["Gender"]
-        measurements3 = vis3_df["Record"]
-        ax3.bar(bars3, measurements3, width=0.2)
-        ax3.set_title("Client Count by Gender")
-        ax3.set_xlabel("Gender")
-        ax3.set_ylabel("Count")
+        # Get your current y-ticks (loc is an array of your current y-tick elements)
+        loc, labels = plt.yticks()
+        # This sets your y-ticks to the specified range at whole number intervals
+        plt.yticks(np.arange(0, max(loc), step=1))
 
-        st.write(fig3)
+        st.pyplot(plt)
+
     st.write(st.session_state.count, st.session_state.submit)
 
 # Streamlit Outputs 2
