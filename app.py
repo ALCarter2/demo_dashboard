@@ -1,11 +1,15 @@
 # Import packages
 import streamlit as st
+import streamlit.components.v1 as components
 import datetime
 import gspread
 from gspread.exceptions import SpreadsheetNotFound
 from gspread_pandas import Spread
 import json
 import random
+import matplotlib.pyplot as plt
+import numpy as np
+from math import nan
 
 # from oauth2client.service_account import ServiceAccountCredentials
 from oauth2client import service_account
@@ -51,6 +55,19 @@ scope = [
     st.secrets["entry1"],
     st.secrets["entry2"],
 ]
+
+plt.rcParams.update(
+    {
+        "axes.titlesize": 4,
+        "axes.titleweight": "bold",
+        "axes.labelweight": "bold",
+        "axes.labelsize": 4,
+        "legend.fontsize": 4,
+        "legend.title_fontsize": 4,
+        "xtick.labelsize": 4,
+        "ytick.labelsize": 4,
+    }
+)
 
 # Import data
 @st.cache(allow_output_mutation=True, show_spinner=False, suppress_st_warning=True)
@@ -160,10 +177,7 @@ def evaluate_hasValue(fields):
     If every field has a length greater than 0, return True.
     If not, return False.
     """
-    for field in fields:
-        if len(str(fields[field][0])) == 0:
-            return False
-    return True
+    return all(str(fields[field][0]) for field in fields)
 
 
 def update_fields(fields, row):
@@ -191,6 +205,7 @@ if "count" not in st.session_state:
 
 if "submit" not in st.session_state:
     st.session_state.submit = 0
+
 
 # st.write(st.session_state.count, st.session_state.submit)
 st.subheader("Navigation")
@@ -375,7 +390,58 @@ else:
     st.sidebar.header("")
     df = grabDF(sheet_url, "Patients", query=f"all")
     st.write(df)
+    st.markdown("""---""")
+    st.write(
+        f"Sample visual output below. Chart output is not data dynamic as of [{date.today()}]. -AC"
+    )
+    row1col1, row1col2, row1col3 = st.columns(3)
+    with row1col1:
+        vis1_df = pd.DataFrame(
+            {"Clinician": {0: "Bert Jacobson", 1: "Elmo Clash"}, "Record": {0: 4, 1: 1}}
+        )
+        fig1, ax1 = plt.subplots()
 
+        bars1 = vis1_df["Clinician"]
+        measurements1 = vis1_df["Record"]
+        ax1.bar(bars1, measurements1, width=0.3333333333333333)
+        ax1.set_title("Client Count by Clinician")
+        ax1.set_xlabel("Clinician")
+        ax1.set_ylabel("Count")
+
+        st.write(fig1)
+
+    with row1col2:
+        vis2_df = pd.DataFrame(
+            {"Diet": {0: "Herbivore", 1: "Omnivore"}, "Record": {0: 4, 1: 1}}
+        )
+        fig2, ax2 = plt.subplots()
+
+        bars2 = vis2_df["Diet"]
+        measurements2 = vis2_df["Record"]
+        ax2.bar(bars2, measurements2, width=0.2)
+        ax2.set_title("Client Count by Diet")
+        ax2.set_xlabel("Diet")
+        ax2.set_ylabel("Count")
+
+        st.write(fig2)
+
+    with row1col3:
+        vis3_df = pd.DataFrame(
+            {
+                "Gender": {0: "Female", 1: "Male", 2: "Non-Binary"},
+                "Record": {0: 2, 1: 2, 2: 1},
+            }
+        )
+        fig3, ax3 = plt.subplots()
+
+        bars3 = vis3_df["Gender"]
+        measurements3 = vis3_df["Record"]
+        ax3.bar(bars3, measurements3, width=0.2)
+        ax3.set_title("Client Count by Gender")
+        ax3.set_xlabel("Gender")
+        ax3.set_ylabel("Count")
+
+        st.write(fig3)
     st.write(st.session_state.count, st.session_state.submit)
 
 # Streamlit Outputs 2
