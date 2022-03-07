@@ -399,7 +399,7 @@ else:
         plt.title("Client Count by Clinician", fontsize=10)
         ax1 = (
             df["Clinician"]
-            .dropna()]
+            .dropna()
             .value_counts()
             .plot.bar(
                 rot=0,
